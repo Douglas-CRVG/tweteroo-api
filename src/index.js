@@ -7,6 +7,7 @@ server.use(express.json())
 
 const users = []
 const tweets = []
+let avatarTweet;
 
 server.post('/sign-up',(req, res)=>{
     const user = req.body;
@@ -17,8 +18,20 @@ server.post('/sign-up',(req, res)=>{
 
 server.post('/tweets',(req, res)=>{
     const tweet = req.body;
-    tweets.push(tweet)
+    tweets.push({...tweet, avatarTweet})
     res.send("OK")
+})
+
+server.get('/tweets',(req, res)=>{
+    let tweetsOnScreen = [];
+    if (tweets.length > 10){
+        for (let i = 1; i <= 10; i++) {
+            tweetsOnScreen.push(tweets[tweets.length - i])
+        }
+    } else {
+        tweetsOnScreen = tweets;
+    }
+    res.send(tweetsOnScreen)
 })
 
 server.listen(5000,() => {
