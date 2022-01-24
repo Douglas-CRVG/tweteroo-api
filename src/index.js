@@ -45,6 +45,12 @@ server.get('/tweets',(req, res)=>{
     res.send(tweetsOnScreen)
 })
 
+server.get('/tweets/:USERNAME', (req, res)=>{
+    const username = req.params.USERNAME
+    const userTweets = tweets.filter(tweet => tweet.username === username);
+    res.send(userTweets)
+})
+
 server.listen(5000,() => {
     console.log("API ATIVA")
 });
