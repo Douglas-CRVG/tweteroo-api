@@ -7,6 +7,7 @@ server.use(express.json())
 
 const users = []
 const tweets = []
+
 let avatarTweet;
 
 server.post('/sign-up',(req, res)=>{
@@ -22,11 +23,13 @@ server.post('/sign-up',(req, res)=>{
 })
 
 server.post('/tweets',(req, res)=>{
-    const tweet = req.body;
-
+    let tweet = {
+        username: req.headers.user,
+        tweet: req.body.tweet
+    }
     let checkRequisition = Object.getOwnPropertyNames(tweet);
     if ((checkRequisition.length === 2) && checkRequisition.includes("username") && checkRequisition.includes("tweet") && (tweet.username !== "" && tweet.tweet !== "")){
-        tweets.push({...tweet, avatarTweet})
+        tweets.push({...tweet, avatar: avatarTweet})
         res.status(201).send("OK")
     } else {
         res.status(400).send("Todos os campos são obrigatórios!")
