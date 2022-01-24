@@ -40,13 +40,13 @@ server.post('/tweets',(req, res)=>{
 server.get('/tweets',(req, res)=>{
     let tweetsOnScreen = [];
     if (tweets.length > 10){
-        for (let i = 1; i <= 10; i++) {
+        for (let i = 10; i >= 1; i--) {
             tweetsOnScreen.push(tweets[tweets.length - i])
         }
     } else {
-        tweetsOnScreen = tweets;
+        tweetsOnScreen = [...tweets];
     }
-    res.send(tweetsOnScreen)
+    res.send(tweetsOnScreen.reverse())
 })
 
 server.get('/tweets/:USERNAME', (req, res)=>{
