@@ -29,7 +29,8 @@ server.post('/tweets',(req, res)=>{
     }
     let checkRequisition = Object.getOwnPropertyNames(tweet);
     if ((checkRequisition.length === 2) && checkRequisition.includes("username") && checkRequisition.includes("tweet") && (tweet.username !== "" && tweet.tweet !== "")){
-        tweets.push({...tweet, avatar: avatarTweet})
+        let user = users.find( user => user.username === tweet.username);
+        tweets.push({...tweet, avatar: user.avatar})
         res.status(201).send("OK")
     } else {
         res.status(400).send("Todos os campos são obrigatórios!")
