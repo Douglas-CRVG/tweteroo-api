@@ -15,7 +15,7 @@ server.post('/sign-up',(req, res)=>{
     if ((checkRequisition.length === 2) && checkRequisition.includes("username") && checkRequisition.includes("avatar") && (user.username !== "" && user.avatar !== "")){
         avatarTweet = user.avatar;
         users.push(user)
-        res.send("OK")
+        res.status(201).send("OK")
     } else {
         res.status(400).send("Todos os campos são obrigatórios!")
     }
@@ -27,7 +27,7 @@ server.post('/tweets',(req, res)=>{
     let checkRequisition = Object.getOwnPropertyNames(tweet);
     if ((checkRequisition.length === 2) && checkRequisition.includes("username") && checkRequisition.includes("tweet") && (tweet.username !== "" && tweet.tweet !== "")){
         tweets.push({...tweet, avatarTweet})
-        res.send("OK")
+        res.status(201).send("OK")
     } else {
         res.status(400).send("Todos os campos são obrigatórios!")
     }
